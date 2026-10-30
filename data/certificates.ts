@@ -11,33 +11,38 @@ export const certificates: Certificate[] = [
     image: "/certificates/cert_Bahasa Indonesia - OSSN 2024_page-0001.jpg",
   },
   {
-    title: "Dokumen Sertifikat 16 Desember 2024",
+    title: "NEW MONEY FORMULA Certificate Document",
     issuer: "Sertifikat",
     image: "/certificates/sertifikat NEW MONEY FORMULA.jpg",
   },
   {
-    title: "Sertifikat Sekolah Pasar Modal Batam",
+    title: "Batam Capital Market School Certificate",
     issuer: "Sertifikat",
     image: "/certificates/image002.png",
   },
   {
-    title: "Sertifikat Seminar DISPORA",
+    title: "DISPORA Seminar Certificate",
     issuer: "Sertifikat",
     image: "/certificates/sertifikat seminar dispora.jpg",
   },
   {
-    title: "Sertifikat Sekolah Pasar Modal Pekanbaru",
+    title: "Pekanbaru Capital Market School Certificate",
     issuer: "Sertifikat",
     image: "/certificates/setifikat pasar modal.jpg",
   },
   {
-    title: "Sertifikat DISPORA",
+    title: "DISPORA Certificate",
     issuer: "DISPORA",
     image: "/certificates/sertifikat%20dispora.jpg",
   },
   {
-    title: "Sertifikat SpaceNet",
+    title: "SpaceNet Certificate",
     issuer: "SpaceNet",
     image: "/certificates/Sertifikat%20spacenet.jpg",
+  },
+  {
+    title: "Coding Camp Certificate",
+    issuer: "Coding Camp",
+    image: "/certificates/sertifikat_coding_camp.png",
   },
 ]

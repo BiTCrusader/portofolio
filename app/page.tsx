@@ -1,4 +1,8 @@
-import { ArrowUpRight, Mail } from "lucide-react"
+"use client"
+
+import { useEffect, useRef, useState } from "react"
+import { ArrowUpRight } from "lucide-react"
+import { SiGmail } from "react-icons/si"
 
 import FadeContent from "@/components/FadeContent"
 import Lanyard from "@/components/Lanyard"
@@ -13,15 +17,15 @@ const projects = [
     name: "EscrowAI",
     category: "Web3 · AI · Smart contract",
     description:
-      "Platform smart contract dan escrow Web3 dengan agen verifikasi AI serta konektivitas MetaMask untuk transaksi terdesentralisasi yang aman.",
+      "Web3 smart contract and escrow platform featuring AI verification agents and MetaMask connectivity for secure, decentralized transactions.",
     stack: ["Web3", "Smart contract", "AI agent", "MetaMask"],
   },
   {
     number: "02",
-    name: "el-barito-order",
+    name: "ScanNDine",
     category: "Web application · Food & beverage",
     description:
-      "Sistem pemesanan mandiri berbasis kode QR dengan Kitchen Display System real-time dan integrasi payment gateway.",
+      "Self-service ordering system based on QR codes with real-time Kitchen Display System and payment gateway integration.",
     stack: ["QR ordering", "Real-time KDS", "Payment gateway"],
   },
   {
@@ -29,7 +33,7 @@ const projects = [
     name: "im_relawan",
     category: "Mobile app · Social impact",
     description:
-      "Aplikasi Flutter untuk manajemen relawan dan pelaporan bencana, dengan pembaruan status yang responsif.",
+      "Flutter application for volunteer management and disaster reporting, with responsive status updates.",
     stack: ["Flutter", "Mobile", "Disaster response"],
   },
   {
@@ -37,7 +41,7 @@ const projects = [
     name: "Image Huffman Compressor",
     category: "Desktop app · Image processing",
     description:
-      "Aplikasi kompresi gambar berbasis Python dan Streamlit dengan format binary header kustom .huffimg.",
+      "Image compression application based on Python and Streamlit with a custom binary header format .huffimg.",
     stack: ["Python", "Streamlit", "Huffman coding"],
   },
 ]
@@ -69,7 +73,84 @@ const techStack = [
   "Vercel",
 ]
 
+const navItems = [
+  { label: "HOME", href: "#beranda" },
+  { label: "ABOUT", href: "#tentang" },
+  { label: "PORTOFOLIO", href: "#portofolio" },
+  { label: "CONTACT", href: "#kontak" },
+]
+
 export default function Page() {
+  const [activeSection, setActiveSection] = useState("#beranda")
+  const isClickScrolling = useRef(false)
+  const clickTimeout = useRef<NodeJS.Timeout | null>(null)
+
+  useEffect(() => {
+    const sectionIds = ["beranda", "tentang", "portofolio", "kontak"]
+
+    const handleScroll = () => {
+      if (isClickScrolling.current) return
+
+      const scrollY = window.scrollY
+      const windowHeight = window.innerHeight
+      const documentHeight = document.documentElement.scrollHeight
+
+      // Jika sudah di dekat dasar halaman, aktifkan #kontak
+      if (scrollY + windowHeight >= documentHeight - 60) {
+        setActiveSection("#kontak")
+        return
+      }
+
+      // Jika di paling atas, aktifkan #beranda
+      if (scrollY < 120) {
+        setActiveSection("#beranda")
+        return
+      }
+
+      const threshold = 220
+      for (const id of sectionIds) {
+        const el = document.getElementById(id)
+        if (el) {
+          const rect = el.getBoundingClientRect()
+          if (rect.top <= threshold && rect.bottom > threshold) {
+            setActiveSection(`#${id}`)
+            break
+          }
+        }
+      }
+    }
+
+    const handleUserScroll = () => {
+      isClickScrolling.current = false
+      if (clickTimeout.current) clearTimeout(clickTimeout.current)
+    }
+
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    window.addEventListener("resize", handleScroll, { passive: true })
+    window.addEventListener("wheel", handleUserScroll, { passive: true })
+    window.addEventListener("touchmove", handleUserScroll, { passive: true })
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("resize", handleScroll)
+      window.removeEventListener("wheel", handleUserScroll)
+      window.removeEventListener("touchmove", handleUserScroll)
+      if (clickTimeout.current) clearTimeout(clickTimeout.current)
+    }
+  }, [])
+
+  const handleItemClick = (item: { href?: string }) => {
+    if (item?.href) {
+      setActiveSection(item.href)
+      isClickScrolling.current = true
+      if (clickTimeout.current) clearTimeout(clickTimeout.current)
+      clickTimeout.current = setTimeout(() => {
+        isClickScrolling.current = false
+      }, 900)
+    }
+  }
+
   return (
     <>
       <div className="originkit-hero35">
@@ -89,12 +170,9 @@ export default function Page() {
               logo="/lanyard/card-front.png"
               logoAlt="Rio Anton Prayoga"
               logoHref="#beranda"
-              items={[
-                { label: "Beranda", href: "#beranda" },
-                { label: "Tentang", href: "#tentang" },
-                { label: "Portofolio", href: "#portofolio" },
-                { label: "Kontak", href: "#kontak" },
-              ]}
+              items={navItems}
+              activeHref={activeSection}
+              onItemClick={handleItemClick}
               defaultActiveIndex={0}
               ariaLabel="Navigasi utama"
               theme="dark"
@@ -121,27 +199,26 @@ export default function Page() {
           >
             <div>
               <p className="text-xs font-semibold tracking-[0.18em] text-[#f05a3e] uppercase">
-                01 / Tentang saya
+                01 / About me
               </p>
               <h2 className="mt-5 max-w-sm text-4xl leading-[0.98] font-semibold tracking-[-0.06em] sm:text-5xl">
-                Sedang belajar,
+                Learning,
                 <br />
-                terus bertumbuh.
+                continue to grow.
               </h2>
             </div>
             <div className="max-w-2xl">
               <p className="text-lg leading-relaxed text-[#393632] sm:text-2xl">
-                Saya Rio, mahasiswa Teknik Informatika yang tertarik membangun
-                produk digital dari antarmuka hingga sistem di baliknya. Saya
-                menikmati proses mengubah ide menjadi solusi yang bisa
-                digunakan.
+                I’m Rio, an Informatics Engineering student with an interest in building 
+                digital products—from the user interface to the underlying systems. 
+                I enjoy the process of transforming ideas into functional, usable solutions.
               </p>
               <p className="mt-6 border-l-2 border-[#f05a3e] pl-4 text-sm leading-relaxed text-[#625e58]">
-                “Tetap bertawakal dan berdoa.”
+                “Remain trusting in God and keep praying.”
               </p>
               <div className="mt-12 border-t border-[#191817]/20 pt-6">
                 <h3 className="text-xs font-semibold tracking-[0.18em] uppercase">
-                  Fokus & keahlian
+                  Focus & expertise
                 </h3>
                 <ul className="mt-5 grid gap-x-8 gap-y-3 sm:grid-cols-2">
                   {capabilities.map((capability, index) => (
@@ -160,7 +237,7 @@ export default function Page() {
             </div>
             <div className="mx-auto w-full max-w-[280px] lg:col-span-2 lg:justify-self-center xl:col-span-1 xl:col-start-3 xl:row-start-1">
               <p className="mb-2 text-center text-[10px] font-medium tracking-[0.16em] text-[#625e58] uppercase">
-                Kartu identitas 3D
+                3D Identity Card
               </p>
               <div className="h-[380px] w-full overflow-hidden">
                 <Lanyard
@@ -198,7 +275,7 @@ export default function Page() {
                 </h2>
               </div>
               <p className="max-w-sm text-sm leading-relaxed text-[#625e58]">
-                Jelajahi proyek, sertifikat, serta teknologi yang saya gunakan.
+                Explore the projects, certificates, and technologies I use.
               </p>
             </FadeContent>
 
@@ -221,12 +298,12 @@ export default function Page() {
           >
             <div>
               <p className="text-xs font-semibold tracking-[0.18em] text-[#f05a3e] uppercase">
-                03 / Mari terhubung
+                03 / Let’s connect
               </p>
               <h2 className="mt-5 max-w-3xl text-5xl leading-[0.92] font-semibold tracking-[-0.07em] sm:text-7xl">
-                Punya ide menarik?
+                Have an interesting idea?
                 <br />
-                <span className="text-[#f05a3e]">Mari berdiskusi.</span>
+                <span className="text-[#f05a3e]">Let’s discuss it.</span>
               </h2>
             </div>
             <div className="mt-10 grid min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -236,7 +313,10 @@ export default function Page() {
                 className="contact-link group flex min-w-0 items-center gap-3 rounded-xl border px-4 py-3"
               >
                 <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-[#191817]/[0.06]">
-                  <Mail size={19} aria-hidden="true" />
+                  <SiGmail
+                    className="size-6 shrink-0"
+                    aria-hidden="true"
+                  />
                 </span>
                 <span className="flex min-w-0 flex-col">
                   <span className="text-[10px] font-semibold tracking-[0.16em] uppercase">
@@ -334,7 +414,6 @@ export default function Page() {
             threshold={0.1}
           >
             <span>© 2026 Rio Anton Prayoga</span>
-            <span>Dibuat dengan rasa ingin tahu dan secangkir kopi.</span>
           </FadeContent>
         </footer>
       </main>
