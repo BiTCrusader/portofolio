@@ -149,10 +149,9 @@ export const SectionHero = () => (
                 </p>
               </div>
               <p
-                className={`max-w-[390px] font-tight text-[14px] leading-[1.75] ${TRACK_UI} ipad:text-[16px]`}
+                className={`max-w-[430px] font-tight text-sm text-slate-400 leading-relaxed ${TRACK_UI} ipad:text-base`}
               >
-                Membangun pengalaman digital dan sistem yang bermanfaat—satu
-                baris kode, satu langkah pada satu waktu.
+                Building a digital ecosystem and a consistently functional system—one step, one line of code at a time.
               </p>
             </div>
           </div>

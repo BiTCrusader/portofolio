@@ -293,14 +293,7 @@ body {
 }
 
 .portfolio-page #tentang h2 {
-  display: inline-block;
-  padding: 12px 18px;
-  border: 2px solid rgb(148 163 184 / 35%);
   color: #f8fafc;
-  font-size: clamp(1.7rem, 3vw, 2.6rem);
-  line-height: 1;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .portfolio-page #tentang .text-\[\#f05a3e\] {
@@ -549,47 +542,6 @@ body {
   background: transparent !important;
 }
 
-.portfolio-page #kontak .text-\[\#f05a3e\] {
-  color: #78c9ff;
-}
-
-.portfolio-page #kontak h2 {
-  font-size: clamp(2.7rem, 6vw, 5rem);
-}
-
-.portfolio-page #kontak a {
-  color: #f1f5f9;
-  border-color: #1f2937;
-}
-
-.portfolio-page #kontak .contact-link {
-  min-height: 72px;
-  border-color: #1f2937;
-  background: rgb(23 23 23 / 72%);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
-  transition:
-    border-color 200ms ease,
-    background-color 200ms ease,
-    color 200ms ease,
-    box-shadow 200ms ease,
-    transform 200ms ease;
-}
-
-.portfolio-page #kontak .contact-link > span:first-child {
-  background: rgb(51 65 85 / 65%);
-  color: #e2e8f0;
-}
-
-.portfolio-page #kontak .contact-link:hover {
-  border-color: #78c9ff;
-  background: #16283a;
-  box-shadow: 0 8px 24px rgb(42 105 165 / 22%);
-  color: #fff;
-  transform: translateY(-2px);
-}
-
 .portfolio-page footer {
   position: relative;
   z-index: 10;
@@ -688,9 +640,6 @@ body {
   /* Section: Tentang (About) */
   .portfolio-page #tentang h2 {
     max-width: 100%;
-    font-size: clamp(1.4rem, 6.5vw, 1.85rem);
-    padding: 8px 12px;
-    letter-spacing: 0.04em;
   }
 
   .portfolio-page #tentang p.sm\:text-2xl,
@@ -794,25 +743,7 @@ body {
 
   /* Section: Kontak */
   .portfolio-page #kontak h2 {
-    font-size: clamp(2rem, 8.5vw, 3.2rem);
-    line-height: 1;
-  }
-
-  .portfolio-page #kontak .contact-link {
-    min-height: 60px;
-    padding: 10px 14px;
-    gap: 10px;
-    border-radius: 12px;
-  }
-
-  .portfolio-page #kontak .contact-link > span:first-child {
-    width: 36px;
-    height: 36px;
-  }
-
-  .portfolio-page #kontak .contact-link .break-all {
-    font-size: 12px;
-    line-height: 1.35;
+    max-width: 100%;
   }
 
   /* Footer on mobile */
@@ -893,8 +824,7 @@ body {
 
   .portfolio-page #portofolio article,
   .portfolio-page .tech-stack-card,
-  .portfolio-page .tech-stack-icon,
-  .portfolio-page #kontak .contact-link {
+  .portfolio-page .tech-stack-icon {
     transition: none;
   }
 
